@@ -1,8 +1,10 @@
 module.exports = {
   purge: [],
   theme: {
-    extend: {},
+    minWidth: {
+      '20': '200px'
+    }
   },
   variants: {},
-  plugins: [require("tailwindcss"), require("autoprefixer")],
-};
+  plugins: [require('tailwindcss'), require('autoprefixer')]
+}

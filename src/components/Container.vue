@@ -17,7 +17,7 @@ interface Props {
   width: Width
 }
 
-// Defenitlly an overengineering, I just wanna show some concepts here like interface emum and validators
+// Defenitlly an overengineering, reason why is I will use it in more than one place and I wanna show some concepts here like interface emum and validators and it's cool
 
 export default defineComponent({
   props: {
