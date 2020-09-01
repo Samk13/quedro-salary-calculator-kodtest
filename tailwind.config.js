@@ -6,5 +6,9 @@ module.exports = {
     }
   },
   variants: {},
-  plugins: [require('tailwindcss'), require('autoprefixer')]
+  plugins: [require('tailwindcss'), require('autoprefixer')],
+  // https://tailwindcss.com/docs/upcoming-changes
+  future: {
+    removeDeprecatedGapUtilities: true
+  }
 }
