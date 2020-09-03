@@ -18,6 +18,15 @@
     <br />
     <!-- <Container width="xl" class="mt-16 bg-white rounded-lg shadow-md rounded px-8 pt-10 pb-8"> -->
     <Container width="xl" class="rounded-lg pt-16 pb-20 h-screen">
+      <div class="my-10">
+        <div v-for="(oneyrke, index) in yrke" :key="index">
+          <radio class="text-white" v-model="picked" :val="oneyrke" name="yrke">{{ oneyrke }}</radio>
+        </div>
+        <div
+          class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2"
+        >Jag är en {{ picked }}</div>
+      </div>
+
       <DropDown class="text-white font-black" v-model="selectedCity" :options="cityOption">Ort</DropDown>
       <div class="text-white text-sm mt-4">Selected: {{ selectedCity }}</div>
       <DropDown
@@ -34,7 +43,13 @@
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api'
 // reason why I made index.ts in components folder for cleaner import as you can see here👇
-import { SubmitButton, Container, AppHeader, DropDown } from '@/components'
+import {
+  SubmitButton,
+  Container,
+  AppHeader,
+  DropDown,
+  Radio
+} from '@/components'
 
 export default defineComponent({
   name: 'App',
@@ -42,7 +57,8 @@ export default defineComponent({
     SubmitButton,
     Container,
     AppHeader,
-    DropDown
+    DropDown,
+    Radio
   },
   setup() {
     const selectedCity = ref('')
@@ -55,12 +71,16 @@ export default defineComponent({
       { value: '2019', label: '2019' },
       { value: '2020', label: '2020' }
     ]
+    const picked = ref('Programmerare')
+    const yrke = ['Programmerare', 'Lärare', 'Kassabiträde']
 
     return {
       selectedCity,
       cityOption,
       yearsOption,
-      selectedYear
+      selectedYear,
+      picked,
+      yrke
     }
   }
 })
