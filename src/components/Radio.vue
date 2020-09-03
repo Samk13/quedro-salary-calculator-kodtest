@@ -1,5 +1,5 @@
 <template>
-  <label class="inline-flex items-center">
+  <label class="inline-flex items-center border rounded-full my-2 px-10 w-full md:w-1/2">
     <input
       @change="$emit('input', $event.target.value)"
       :checked="val == value"
@@ -8,7 +8,7 @@
       :name="name"
       type="radio"
     />
-    <span class="ml-2 font-black p-5 border rounded-lg my-5 px-10">
+    <span class="m-auto text-lg font-black p-5">
       <slot />
     </span>
   </label>

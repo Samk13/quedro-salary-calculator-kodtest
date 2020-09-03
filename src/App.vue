@@ -28,13 +28,17 @@
       </div>
 
       <DropDown class="text-white font-black" v-model="selectedCity" :options="cityOption">Ort</DropDown>
-      <div class="text-white text-sm mt-4">Selected: {{ selectedCity }}</div>
+      <div
+        class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2"
+      >Selected: {{ selectedCity }}</div>
       <DropDown
         class="text-white font-black"
         v-model="selectedYear"
         :options="yearsOption"
       >Inkomstår</DropDown>
-      <div class="text-white text-sm mt-4">Selected: {{ selectedYear }}</div>
+      <div
+        class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2"
+      >Selected: {{ selectedYear }}</div>
       <SubmitButton class="mx-4 py-2 px-6">Beräkna lön</SubmitButton>
     </Container>
   </section>
