@@ -98,11 +98,11 @@ export default defineComponent({
 
     const salary = computed(() => {
       if (picked.value === 'Programmerare') {
-        return 36000
-      } else if (picked.value === 'Lärare') {
         return 30000
-      } else if (picked.value === 'Kassabiträde') {
+      } else if (picked.value === 'Lärare') {
         return 27000
+      } else if (picked.value === 'Kassabiträde') {
+        return 25000
       }
     })
 
