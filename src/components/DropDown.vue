@@ -5,7 +5,7 @@
     </span>
     <select
       @change="$emit('input', $event.target.value)"
-      class="form-select mt-1 block w-full md:w-1/2 border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none"
+      class="form-select mt-1 block w-full md:w-1/2 border border-gray-500 text-xl rounded-full cursor-pointer text-black-600 h-16 pl-5 pr-10 bg-gray-900 hover:border-gray-400 focus:outline-none hover:bg-gray-900"
     >
       <option
         v-for="(option, index) in options"

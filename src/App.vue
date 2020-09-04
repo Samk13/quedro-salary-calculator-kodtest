@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-gray-900 h-screen">
+  <section>
     <AppHeader class="bg-gradient-to-r from-orange-400 via-red-500 to-pink-500">
       <template v-slot:left>
         <img class="inline-block w-auto h-6" src=".\assets\quedro_logo-dark.png" alt="quedro logo" />
@@ -16,21 +16,20 @@
       </template>
     </AppHeader>
     <br />
-    <!-- <Container width="xl" class="mt-16 bg-white rounded-lg shadow-md rounded px-8 pt-10 pb-8"> -->
+
     <Container width="xl" class="rounded-lg pt-16 pb-20 h-screen">
       <div class="my-10">
         <div v-for="(oneyrke, index) in yrke" :key="index">
           <radio class="text-white" v-model="picked" :val="oneyrke" name="yrke">{{ oneyrke }}</radio>
         </div>
-        <div
-          class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2"
-        >Jag är en {{ picked }}</div>
       </div>
+      <InputComponent
+        class="w-full md:w-1/2"
+        placeholder="Years of experience"
+        v-model="numberOfYears"
+      />
 
       <DropDown class="text-white font-black" v-model="selectedCity" :options="cityOption">Ort</DropDown>
-      <div
-        class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2"
-      >Selected: {{ selectedCity }}</div>
       <DropDown
         class="text-white font-black"
         v-model="selectedYear"
@@ -39,19 +38,35 @@
       <div
         class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2"
       >Selected: {{ selectedYear }}</div>
+      <div
+        class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2"
+      >Selected: {{ selectedCity }}</div>
+      <div
+        class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2"
+      >Jag är en {{ picked }}</div>
+
+      <div
+        class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2"
+      >number of years : {{ numberOfYears }}</div>
       <SubmitButton class="mx-4 py-2 px-6">Beräkna lön</SubmitButton>
+
+      <div class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2">
+        lön
+        <span class="font-mono text-3xl">{{ salary }}</span>
+      </div>
     </Container>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/composition-api'
+import { defineComponent, ref, computed } from '@vue/composition-api'
 // reason why I made index.ts in components folder for cleaner import as you can see here👇
 import {
   SubmitButton,
   Container,
   AppHeader,
   DropDown,
+  InputComponent,
   Radio
 } from '@/components'
 
@@ -59,6 +74,7 @@ export default defineComponent({
   name: 'App',
   components: {
     SubmitButton,
+    InputComponent,
     Container,
     AppHeader,
     DropDown,
@@ -67,6 +83,8 @@ export default defineComponent({
   setup() {
     const selectedCity = ref('')
     const selectedYear = ref('')
+    const numberOfYears = ref('slkdf')
+    const errors = ref([])
     const cityOption = [
       { value: 'Stockholm', label: 'Stockholm' },
       { value: 'Gothenburg', label: 'Gothenburg' }
@@ -78,14 +96,28 @@ export default defineComponent({
     const picked = ref('Programmerare')
     const yrke = ['Programmerare', 'Lärare', 'Kassabiträde']
 
+    const salary = computed(() => {
+      if (picked.value === 'Programmerare') {
+        return 36000
+      } else if (picked.value === 'Lärare') {
+        return 30000
+      } else if (picked.value === 'Kassabiträde') {
+        return 27000
+      }
+    })
+
     return {
       selectedCity,
       cityOption,
       yearsOption,
       selectedYear,
       picked,
-      yrke
+      yrke,
+      numberOfYears,
+      errors,
+      salary
     }
   }
 })
 </script>
+
