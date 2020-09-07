@@ -23,14 +23,16 @@
           <radio class="text-white" v-model="picked" :val="oneyrke" name="yrke">{{ oneyrke }}</radio>
         </div>
       </div>
+
       <InputComponent
         class="w-full md:w-1/2"
         placeholder="Years of experience"
-        v-model="numberOfYears"
+        v-model="yearsOfExperience"
       />
+      <!--  there is many way to aproch this number check I decided to go with this stupid simple way -->
       <div
-        v-if="!!isNaN(parseInt(numberOfYears))"
-        class="border rounded-lg p-3 text-center mt-10 text-red-500 font-black w-full md:w-1/2"
+        v-show="!!isNaN(yearsOfExperience)"
+        class="mb-10 text-red-500 font-thin w-full md:w-1/2"
       >please enter a valid number between 0 and 50</div>
       <DropDown class="text-white font-black" v-model="selectedCity" :options="cityOption">Ort</DropDown>
       <DropDown
@@ -50,7 +52,7 @@
 
       <div
         class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2"
-      >number of years : {{ numberOfYears }}</div>
+      >number of years : {{ yearsOfExperience }}</div>
       <SubmitButton class="mx-4 py-2 px-6">Beräkna lön</SubmitButton>
 
       <div class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2">
@@ -89,7 +91,7 @@ export default defineComponent({
   setup() {
     const selectedCity = ref('')
     const selectedYear = ref('')
-    const numberOfYears = ref('3')
+    const yearsOfExperience = ref('3')
     const cityOption = [
       { value: 'Stockholm', label: 'Stockholm' },
       { value: 'Gothenburg', label: 'Gothenburg' }
@@ -113,38 +115,38 @@ export default defineComponent({
 
     const experiancePercentage = computed(() => {
       if (
-        parseInt(numberOfYears.value) >= 0 &&
-        parseInt(numberOfYears.value) <= 3
+        parseInt(yearsOfExperience.value) >= 0 &&
+        parseInt(yearsOfExperience.value) <= 3
       ) {
         return salary.value
       } else if (
-        parseInt(numberOfYears.value) > 3 &&
-        parseInt(numberOfYears.value) <= 7
+        parseInt(yearsOfExperience.value) > 3 &&
+        parseInt(yearsOfExperience.value) <= 7
       ) {
         return (20 / 100) * salary.value + salary.value
       } else if (
-        parseInt(numberOfYears.value) > 7 &&
-        parseInt(numberOfYears.value) <= 10
+        parseInt(yearsOfExperience.value) > 7 &&
+        parseInt(yearsOfExperience.value) <= 10
       ) {
         return (40 / 100) * salary.value + salary.value
       } else if (
-        parseInt(numberOfYears.value) > 10 &&
-        parseInt(numberOfYears.value) < 50
+        parseInt(yearsOfExperience.value) > 10 &&
+        parseInt(yearsOfExperience.value) < 50
       ) {
         return (60 / 100) * salary.value + salary.value
       } else return null
     })
 
     return {
-      selectedCity,
-      cityOption,
-      yearsOption,
+      experiancePercentage,
+      yearsOfExperience,
       selectedYear,
-      picked,
-      yrke,
-      numberOfYears,
+      selectedCity,
+      yearsOption,
+      cityOption,
       salary,
-      experiancePercentage
+      picked,
+      yrke
     }
   }
 })
