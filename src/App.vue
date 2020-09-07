@@ -2,7 +2,13 @@
   <section>
     <AppHeader class="bg-gradient-to-r from-orange-400 via-red-500 to-pink-500">
       <template v-slot:left>
-        <img class="inline-block w-auto h-6" src=".\assets\quedro_logo-dark.png" alt="quedro logo" />
+        <a class="skip-link" href="#maincontent">
+          <img
+            class="inline-block w-auto h-6"
+            src=".\assets\quedro_logo-dark.png"
+            alt="quedro logo"
+          />
+        </a>
       </template>
       <template v-slot:middle>
         <div class="text-lg font-black">Lönekalkylator</div>
@@ -15,57 +21,69 @@
         >About</a>
       </template>
     </AppHeader>
-    <br />
 
-    <Container width="xl" class="rounded-lg pt-16 pb-20 h-screen">
-      <div class="my-10">
-        <div v-for="(oneyrke, index) in yrke" :key="index">
-          <radio class="text-white" v-model="picked" :val="oneyrke" name="yrke">{{ oneyrke }}</radio>
+    <Container
+      width="xl"
+      class="text-white mt-10 pt-16 flex flex-col md:flex-row justify-center rounded-lg"
+    >
+      <!-- input start -->
+      <section class="w-full md:w-1/2 md:mr-10">
+        <form>
+          <label class="text-2xl font-bold">Yrke</label>
+          <div class="flex flex-col xl:flex-row xl:space-x-2 ml-2">
+            <div v-for="(oneyrke, index) in yrke" :key="index">
+              <radio
+                class="min-w-20 text-white inline-flex w-full items-center border rounded-lg my-2 px-3"
+                v-model="picked"
+                :val="oneyrke"
+                name="yrke"
+              >{{ oneyrke }}</radio>
+            </div>
+          </div>
+          <div>
+            <label for="exyears" class="text-2xl font-bold">Erfarenhet</label>
+            <InputComponent
+              id="exyears"
+              class="w-full"
+              placeholder="Years of experience"
+              v-model="yearsOfExperience"
+            />
+          </div>
+          <!--  there is many way to aproch this number check I decided to go with this stupid simple way -->
+          <div
+            v-show="!!isNaN(yearsOfExperience)"
+            class="mb-10 text-red-500 font-thin w-full md:w-1/2"
+          >please enter a valid number between 0 and 50</div>
+          <DropDown class="text-2xl font-bold" v-model="selectedCity" :options="cityOption">Ort</DropDown>
+          <DropDown
+            class="text-white font-black"
+            v-model="selectedYear"
+            :options="yearsOption"
+          >Inkomstår</DropDown>
+        </form>
+      </section>
+
+      <!-- input end -->
+      <section class="w-full md:w-1/2 text-white">
+        <div
+          class="border rounded-lg text-center p-5 md:mx-0 my-2 md:my-6 bg-blue-600 font-medium shadow-lg"
+        >
+          <div class="text-4xl text-white">Lön</div>
+          <div id="month" class="font-bold text-white text-6xl">SEK {{ taxRate }}</div>
+          <hr />
+          <div class="text-sm my-3">base sallary {{ salary }}</div>
+          <hr />
+          <div class="text-sm my-3">after Your years of experience {{ experiancePercentage }}</div>
+          <hr />
+          <div class="text-sm my-3">tax {{ experiancePercentage - taxRate }}</div>
+          <hr />
+          <a href="#" target="_blank">
+            <div
+              class="bg-gradient-base border border-blue-600 hover:bg-white text-white hover:text-blue-600 font-bold uppercase text-xs mt-5 py-2 px-4 rounded cursor-pointer"
+            >submit</div>
+          </a>
         </div>
-      </div>
-
-      <InputComponent
-        class="w-full md:w-1/2"
-        placeholder="Years of experience"
-        v-model="yearsOfExperience"
-      />
-      <!--  there is many way to aproch this number check I decided to go with this stupid simple way -->
-      <div
-        v-show="!!isNaN(yearsOfExperience)"
-        class="mb-10 text-red-500 font-thin w-full md:w-1/2"
-      >please enter a valid number between 0 and 50</div>
-      <DropDown class="text-white font-black" v-model="selectedCity" :options="cityOption">Ort</DropDown>
-      <DropDown
-        class="text-white font-black"
-        v-model="selectedYear"
-        :options="yearsOption"
-      >Inkomstår</DropDown>
-      <!-- <div
-        class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2"
-      >Selected: {{ selectedYear }}</div>
-      <div
-        class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2"
-      >Selected: {{ selectedCity }}</div>
-      <div
-        class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2"
-      >Jag är en {{ picked }}</div>
-
-      <div
-        class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2"
-      >number of years : {{ yearsOfExperience }}</div>-->
-      <!-- <SubmitButton class="mx-4 py-2 px-6">Beräkna lön</SubmitButton> -->
-
-      <div class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2">
-        <span class="font-mono text-3xl">SEK {{ salary }}</span>
-      </div>
-      <div class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2">
-        experiancePercentage
-        <span class="font-mono text-3xl">SEK {{ experiancePercentage }}</span>
-      </div>
-      <div class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2">
-        Tax rate
-        <span class="font-mono text-3xl">SEK {{ taxRate }}</span>
-      </div>
+      </section>
     </Container>
   </section>
 </template>
@@ -108,11 +126,11 @@ export default defineComponent({
     const yrke = ['Programmerare', 'Lärare', 'Kassabiträde']
 
     const salary = computed(() => {
-      if (picked.value === 'Programmerare') {
+      if (picked.value === yrke[0]) {
         return 30000
-      } else if (picked.value === 'Lärare') {
+      } else if (picked.value === yrke[1]) {
         return 27000
-      } else if (picked.value === 'Kassabiträde') {
+      } else if (picked.value === yrke[2]) {
         return 25000
       } else return 0
     })
