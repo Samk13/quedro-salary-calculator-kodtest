@@ -40,7 +40,7 @@
         v-model="selectedYear"
         :options="yearsOption"
       >Inkomstår</DropDown>
-      <div
+      <!-- <div
         class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2"
       >Selected: {{ selectedYear }}</div>
       <div
@@ -52,8 +52,8 @@
 
       <div
         class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2"
-      >number of years : {{ yearsOfExperience }}</div>
-      <SubmitButton class="mx-4 py-2 px-6">Beräkna lön</SubmitButton>
+      >number of years : {{ yearsOfExperience }}</div>-->
+      <!-- <SubmitButton class="mx-4 py-2 px-6">Beräkna lön</SubmitButton> -->
 
       <div class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2">
         <span class="font-mono text-3xl">SEK {{ salary }}</span>
@@ -61,6 +61,10 @@
       <div class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2">
         experiancePercentage
         <span class="font-mono text-3xl">SEK {{ experiancePercentage }}</span>
+      </div>
+      <div class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2">
+        Tax rate
+        <span class="font-mono text-3xl">SEK {{ taxRate }}</span>
       </div>
     </Container>
   </section>
@@ -89,8 +93,8 @@ export default defineComponent({
     Radio
   },
   setup() {
-    const selectedCity = ref('')
-    const selectedYear = ref('')
+    const selectedCity = ref('Stockholm')
+    const selectedYear = ref('2020')
     const yearsOfExperience = ref('3')
     const cityOption = [
       { value: 'Stockholm', label: 'Stockholm' },
@@ -134,7 +138,42 @@ export default defineComponent({
         parseInt(yearsOfExperience.value) < 50
       ) {
         return (60 / 100) * salary.value + salary.value
-      } else return null
+      } else return parseInt(yearsOfExperience.value)
+    })
+
+    const taxRate = computed(() => {
+      if (
+        experiancePercentage.value >= 36000 &&
+        experiancePercentage.value <= 45000
+      ) {
+        return (
+          experiancePercentage.value - (50 / 100) * experiancePercentage.value
+        )
+      } else if (experiancePercentage.value > 45000) {
+        return (
+          experiancePercentage.value - (70 / 100) * experiancePercentage.value
+        )
+      } else if (selectedCity.value === cityOption[0].value) {
+        if (selectedYear.value === yearsOption[0].value) {
+          return (
+            experiancePercentage.value - (30 / 100) * experiancePercentage.value
+          )
+        } else if (selectedYear.value === yearsOption[1].value) {
+          return (
+            experiancePercentage.value - (29 / 100) * experiancePercentage.value
+          )
+        }
+      } else if (selectedCity.value === cityOption[1].value) {
+        if (selectedYear.value === yearsOption[0].value) {
+          return (
+            experiancePercentage.value - (25 / 100) * experiancePercentage.value
+          )
+        } else if (selectedYear.value === yearsOption[1].value) {
+          return (
+            experiancePercentage.value - (22 / 100) * experiancePercentage.value
+          )
+        }
+      }
     })
 
     return {
@@ -144,6 +183,7 @@ export default defineComponent({
       selectedCity,
       yearsOption,
       cityOption,
+      taxRate,
       salary,
       picked,
       yrke
