@@ -28,7 +28,10 @@
         placeholder="Years of experience"
         v-model="numberOfYears"
       />
-
+      <div
+        v-if="!!isNaN(parseInt(numberOfYears))"
+        class="border rounded-lg p-3 text-center mt-10 text-red-500 font-black w-full md:w-1/2"
+      >please enter a valid number between 0 and 50</div>
       <DropDown class="text-white font-black" v-model="selectedCity" :options="cityOption">Ort</DropDown>
       <DropDown
         class="text-white font-black"
@@ -51,8 +54,11 @@
       <SubmitButton class="mx-4 py-2 px-6">Beräkna lön</SubmitButton>
 
       <div class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2">
-        lön
-        <span class="font-mono text-3xl">{{ salary }}</span>
+        <span class="font-mono text-3xl">SEK {{ salary }}</span>
+      </div>
+      <div class="border rounded-lg p-3 text-center mt-10 text-white font-black w-full md:w-1/2">
+        experiancePercentage
+        <span class="font-mono text-3xl">SEK {{ experiancePercentage }}</span>
       </div>
     </Container>
   </section>
@@ -83,8 +89,7 @@ export default defineComponent({
   setup() {
     const selectedCity = ref('')
     const selectedYear = ref('')
-    const numberOfYears = ref('slkdf')
-    const errors = ref([])
+    const numberOfYears = ref('3')
     const cityOption = [
       { value: 'Stockholm', label: 'Stockholm' },
       { value: 'Gothenburg', label: 'Gothenburg' }
@@ -103,7 +108,31 @@ export default defineComponent({
         return 27000
       } else if (picked.value === 'Kassabiträde') {
         return 25000
-      }
+      } else return 0
+    })
+
+    const experiancePercentage = computed(() => {
+      if (
+        parseInt(numberOfYears.value) >= 0 &&
+        parseInt(numberOfYears.value) <= 3
+      ) {
+        return salary.value
+      } else if (
+        parseInt(numberOfYears.value) > 3 &&
+        parseInt(numberOfYears.value) <= 7
+      ) {
+        return (20 / 100) * salary.value + salary.value
+      } else if (
+        parseInt(numberOfYears.value) > 7 &&
+        parseInt(numberOfYears.value) <= 10
+      ) {
+        return (40 / 100) * salary.value + salary.value
+      } else if (
+        parseInt(numberOfYears.value) > 10 &&
+        parseInt(numberOfYears.value) < 50
+      ) {
+        return (60 / 100) * salary.value + salary.value
+      } else return null
     })
 
     return {
@@ -114,8 +143,8 @@ export default defineComponent({
       picked,
       yrke,
       numberOfYears,
-      errors,
-      salary
+      salary,
+      experiancePercentage
     }
   }
 })
