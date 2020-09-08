@@ -3,12 +3,12 @@
     <input
       @change="$emit('input', $event.target.value)"
       :checked="val == value"
-      class="h-4 w-4 text-purple-600"
+      class="h-4 w-4 text-purple-600 ml-3"
       :value="val"
       :name="name"
       type="radio"
     />
-    <span class="m-auto font-black p-2">
+    <span class="m-auto font-medium p-2">
       <slot />
     </span>
   </label>
