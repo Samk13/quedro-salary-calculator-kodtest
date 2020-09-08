@@ -40,20 +40,21 @@
               >{{ oneyrke }}</radio>
             </div>
           </div>
-          <div>
+          <div class="h-30">
             <label for="exyears" class="text-2xl font-bold">Erfarenhet</label>
             <InputComponent
               id="exyears"
               class="w-full"
-              placeholder="Years of experience"
+              placeholder="Enter your Years of experience between 0 - 65"
               v-model="yearsOfExperience"
             />
+            <div
+              v-if="isNaN(yearsOfExperience)"
+              class="mb-10 text-red-500 font-thin w-full md:w-1/2"
+            >please enter a valid number between 0 and 65</div>
+            <div v-else class="h-10"></div>
           </div>
           <!--  there is many way to aproch this number check I decided to go with this stupid simple way -->
-          <div
-            v-show="!!isNaN(yearsOfExperience)"
-            class="mb-10 text-red-500 font-thin w-full md:w-1/2"
-          >please enter a valid number between 0 and 50</div>
           <DropDown class="text-2xl font-bold" v-model="selectedCity" :options="cityOption">Ort</DropDown>
           <DropDown
             class="text-white font-black"
@@ -66,16 +67,19 @@
       <!-- input end -->
       <section class="w-full md:w-1/2 text-white">
         <div
-          class="border rounded-lg text-center p-5 md:mx-0 my-2 md:my-6 bg-blue-600 font-medium shadow-lg"
+          class="border rounded-lg text-center p-5 md:mx-0 my-2 my-2 bg-blue-600 font-medium shadow-lg"
         >
-          <div class="text-4xl text-white">Lön</div>
-          <div id="month" class="font-bold text-white text-6xl">SEK {{ taxRate }}</div>
+          <h1 class="text-5xl text-white">Lön specifikation</h1>
+          <div id="month" class="font-bold text-6xl flex">
+            <span class="text-2xl mr-2 w-1/2 m-auto">SEK</span>
+            <span class="text-4xl w-1/2 m-auto">{{ taxRate }}</span>
+          </div>
           <hr />
           <div class="text-sm my-3">base sallary {{ salary }}</div>
           <hr />
           <div class="text-sm my-3">after Your years of experience {{ experiancePercentage }}</div>
           <hr />
-          <div class="text-sm my-3">tax {{ experiancePercentage - taxRate }}</div>
+          <div class="text-sm my-3">after tax {{ taxRate }}</div>
           <hr />
           <a href="#" target="_blank">
             <div
@@ -90,7 +94,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from '@vue/composition-api'
-// reason why I made index.ts in components folder for cleaner import as you can see here👇
+// reason why I made index.ts in components folder for cleaner import
 import {
   SubmitButton,
   Container,
@@ -113,7 +117,7 @@ export default defineComponent({
   setup() {
     const selectedCity = ref('Stockholm')
     const selectedYear = ref('2020')
-    const yearsOfExperience = ref('3')
+    const yearsOfExperience = ref('')
     const cityOption = [
       { value: 'Stockholm', label: 'Stockholm' },
       { value: 'Gothenburg', label: 'Gothenburg' }
@@ -136,7 +140,9 @@ export default defineComponent({
     })
 
     const experiancePercentage = computed(() => {
-      if (
+      if (isNaN(parseInt(yearsOfExperience.value))) {
+        return salary.value
+      } else if (
         parseInt(yearsOfExperience.value) >= 0 &&
         parseInt(yearsOfExperience.value) <= 3
       ) {
@@ -153,10 +159,10 @@ export default defineComponent({
         return (40 / 100) * salary.value + salary.value
       } else if (
         parseInt(yearsOfExperience.value) > 10 &&
-        parseInt(yearsOfExperience.value) < 50
+        parseInt(yearsOfExperience.value) < 65
       ) {
         return (60 / 100) * salary.value + salary.value
-      } else return parseInt(yearsOfExperience.value)
+      } else return salary.value
     })
 
     const taxRate = computed(() => {
