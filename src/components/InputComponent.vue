@@ -4,7 +4,7 @@
       @input="onInput($event)"
       :value="val"
       :placeholder="placeholder"
-      class="p-3 bg-blue-500 rounded-lg focus:outline-none block w-full"
+      class="p-3 rounded-lg text-gray-900 font-bold focus:outline-none block w-full"
     />
   </div>
 </template>

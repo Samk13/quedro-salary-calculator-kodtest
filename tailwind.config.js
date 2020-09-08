@@ -3,6 +3,9 @@ module.exports = {
   theme: {
     minWidth: {
       '20': '200px'
+    },
+    fontFamily: {
+      sans: ['roboto']
     }
   },
   variants: {},
