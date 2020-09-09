@@ -3,7 +3,7 @@
     <!-- <AppHeader class="bg-gradient-to-r from-orange-400 via-red-500 to-pink-500"> -->
     <AppHeader class="bg-blue-900">
       <template v-slot:left>
-        <a class="skip-link" href="#maincontent">
+        <a class="skip-link" href="https://www.quedro.com/" target="_blank">
           <img
             class="inline-block w-auto h-6"
             src=".\assets\quedro_logo-white.png"
