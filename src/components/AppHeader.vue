@@ -7,7 +7,7 @@
       <div class="text-center text-sm  text-gray-900 w-1/3">
         <slot name="middle" />
       </div>
-      <div class="text-right font-black text-gray-900 w-1/3">
+      <div class="text-right w-1/3">
         <slot name="right" />
       </div>
     </Container>

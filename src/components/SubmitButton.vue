@@ -27,8 +27,7 @@ export default defineComponent({
   setup(props: Props) {
     const classList = computed(() => {
       const classes = [
-        'rounded-full',
-        'border',
+        'rounded-lg',
         'uppercase',
         'font-black',
         'bg-gradient-to-l from-orange-400 via-red-500 to-pink-500',

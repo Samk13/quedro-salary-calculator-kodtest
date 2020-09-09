@@ -1,23 +1,23 @@
 <template>
   <section>
     <!-- <AppHeader class="bg-gradient-to-r from-orange-400 via-red-500 to-pink-500"> -->
-    <AppHeader class="bg-gray-200">
+    <AppHeader class="bg-blue-900">
       <template v-slot:left>
         <a class="skip-link" href="#maincontent">
           <img
             class="inline-block w-auto h-6"
-            src=".\assets\quedro_logo-dark.png"
+            src=".\assets\quedro_logo-white.png"
             alt="quedro logo"
           />
         </a>
       </template>
       <template v-slot:middle>
-        <div class="text-lg font-medium">Lönekalkylator</div>
+        <div class="text-lg font-medium text-gray-400">Lönekalkylator</div>
       </template>
       <template v-slot:right>
         <a
-          class="ml-auto cursor-pointer select-none"
-          href="https://github.com/Samk13"
+          class="ml-auto cursor-pointer select-none text-gray-400"
+          href="https://github.com/Samk13/quedro-salary-calculator-kodtest"
           target="_blank"
           >About</a
         >
@@ -28,10 +28,11 @@
       width="xl"
       class="text-white mt-10 pt-16 flex flex-col md:flex-row justify-center rounded-lg"
     >
-      <!-- input start -->
       <section class="w-full md:w-1/2 md:mr-10">
         <form @submit.prevent="onFormSubmit()">
-          <label class="text-2xl font-semibold">userProfession</label>
+          <label class="text-3xl text-white font-hairline uppercase"
+            >Yrke</label
+          >
           <div class="flex flex-col xl:flex-row xl:space-x-2 mb-5">
             <div
               v-for="(oneuserProfession, index) in userProfession"
@@ -47,7 +48,9 @@
             </div>
           </div>
           <div class="h-30">
-            <label for="exyears" class="text-2xl font-semibold"
+            <label
+              for="exyears"
+              class="text-3xl text-white font-hairline uppercase"
               >Erfarenhet</label
             >
             <InputComponent
@@ -58,21 +61,21 @@
             />
             <div
               v-if="isNaN(yearsOfExperience)"
-              class="mb-10 text-red-500 font-thin transition transition-all"
+              class=" text-orange-700 font-thin h-5 transition-all duration-500"
             >
               please enter a valid number between 0 and 65
             </div>
-            <div v-else class="h-10"></div>
+            <div v-else class="h-0"></div>
           </div>
           <!--  there is many way to aproch this number check I decided to go with this stupid simple way -->
           <DropDown
-            class="text-2xl font-semibold"
+            class="text-3xl text-white font-hairline uppercase mt-5"
             v-model="selectedCity"
             :options="cityOption"
             >Ort</DropDown
           >
           <DropDown
-            class="text-white font-black"
+            class="text-3xl text-white font-hairline uppercase mt-5"
             v-model="selectedYear"
             :options="yearsOption"
             >Inkomstår</DropDown
@@ -80,32 +83,37 @@
         </form>
       </section>
 
-      <!-- input end -->
-      <section class="w-full md:w-1/2 text-white">
+      <section class="w-full md:w-1/2 text-white mt-10">
         <div
-          class="border rounded-lg text-center p-5 md:mx-0 my-2 my-2 bg-blue-600 font-medium shadow-lg"
+          class="border rounded-lg p-5 md:mx-0 my-2 my-2 bg-blue-600 font-medium shadow-lg"
         >
-          <h1 class="text-5xl text-white">Lön specifikation</h1>
-          <div id="month" class="font-bold text-6xl flex">
-            <span class="text-2xl mr-2 w-1/2 m-auto">SEK</span>
-            <span class="text-4xl w-1/2 m-auto">{{ taxRate }}</span>
+          <h1 class="text-3xl text-white font-hairline uppercase">
+            Lön specifikation
+          </h1>
+          <div id="month" class="font-hairline text-6xl flex">
+            <span class="text-xl mr-2 w-1/2 m-auto">Lön efter skatt</span>
+            <span class="text-xs font-hairline font-light mr-1 mt-4">SEK</span>
+            <span class="text-4xl w-1/2 m-auto font-black">{{ taxRate }}</span>
           </div>
           <hr />
-          <div class="text-sm my-3">base sallary {{ baseSalary }}</div>
-          <hr />
-          <div class="text-sm my-3">
-            after Your years of experience {{ experiancePercentage }}
+          <div id="month" class="font-hairline text-6xl flex">
+            <span class="text-lg mr-2 w-1/2 m-auto">Månadslön</span>
+            <span class="text-xs font-hairline font-light mr-1 mt-1">SEK</span>
+            <span class="text-base w-1/2 m-auto">{{ baseSalary }}</span>
           </div>
           <hr />
-          <div class="text-sm my-3">after tax {{ taxRate }}</div>
-          <hr />
-          <a href="#" target="_blank">
-            <div
-              class="bg-gradient-base border border-blue-600 hover:bg-white text-white hover:text-blue-600 font-bold uppercase text-xs mt-5 py-2 px-4 rounded cursor-pointer"
-            >
-              submit
-            </div>
-          </a>
+          <div id="month" class="font-hairline text-6xl flex">
+            <span class="text-xl mr-2 w-1/2 m-auto">Erfarenhet andel</span>
+            <span class="text-xs font-hairline font-light mr-1 mt-1">SEK</span>
+            <span class="text-base w-1/2 m-auto">{{
+              experiancePercentage
+            }}</span>
+          </div>
+          <submit-button
+            class="hover:text-gray-900 font-bold uppercase text-xs mt-8 py-2 px-4 min-w-20 rounded cursor-pointer"
+          >
+            Print
+          </submit-button>
         </div>
       </section>
     </Container>
@@ -142,16 +150,13 @@ export default defineComponent({
       userProfession,
       selectedCity,
       selectedYear,
+      onFormSubmit,
       yearsOption,
       cityOption,
       baseSalary,
       picked,
       taxRate
     } = useSalary()
-
-    const onFormSubmit = () => {
-      return console.log('submitted')
-    }
 
     return {
       experiancePercentage,

@@ -89,16 +89,21 @@ export default function useSalary() {
     }
   })
 
+  const onFormSubmit = () => {
+    return console.log('submitted')
+  }
+
   return {
+    experiancePercentage,
+    yearsOfExperience,
+    userProfession,
     selectedCity,
     selectedYear,
-    yearsOfExperience,
-    cityOption,
+    onFormSubmit,
     yearsOption,
-    picked,
-    userProfession,
+    cityOption,
     baseSalary,
-    experiancePercentage,
+    picked,
     taxRate
   }
 }
