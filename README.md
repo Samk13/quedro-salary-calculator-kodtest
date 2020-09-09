@@ -1,6 +1,6 @@
 # quedro-salary-calculator-kodtest
 
-I useed:
+I used:
 
   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/512px-Typescript_logo_2020.svg.png" height="200px" width="200px" alt="ml5 logo"/>     <img src="https://cdn.iconscout.com/icon/free/png-256/vue-282497.png" width="200px" height="200px" alt="Vuejs logo"/>
 
@@ -17,7 +17,9 @@ yarn
 yarn dev
 ```
 
-### Compiles and minifies for production
+### deployment on gh-pages
+
+- make sure you setup and ssh key for your mashine
 
 #### on Windows
 ```
