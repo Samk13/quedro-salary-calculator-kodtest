@@ -3,24 +3,27 @@
 
 ## Project setup
 ```
-npm install
+yarn
 ```
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+yarn dev
 ```
 
 ### Compiles and minifies for production
 
+#### on Windows
 ```
-npm run build
+sh deploy.sh
 ```
+#### on Mac
+```
+./deploy.sh
+```
+
 
 ### Lints and fixes files
 ```
-npm run lint
+yarn lint --fix
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
