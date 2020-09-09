@@ -19,40 +19,29 @@
           class="ml-auto cursor-pointer select-none text-gray-400"
           href="https://github.com/Samk13/quedro-salary-calculator-kodtest"
           target="_blank"
-          >About</a
-        >
+        >About</a>
       </template>
     </AppHeader>
 
-    <Container
-      width="xl"
-      class="text-white mt-10 pt-16 flex flex-col md:flex-row justify-center rounded-lg"
-    >
-      <section class="w-full md:w-1/2 md:mr-10">
-        <form @submit.prevent="onFormSubmit()">
-          <label class="text-3xl text-white font-hairline uppercase"
-            >Yrke</label
-          >
+    <Container width="xl">
+      <form
+        @submit.prevent="onFormSubmit()"
+        class="text-white mt-10 pt-16 flex flex-col md:flex-row justify-center rounded-lg"
+      >
+        <section class="w-full md:w-1/2 md:mr-10">
+          <label class="text-3xl text-white font-hairline uppercase">Yrke</label>
           <div class="flex flex-col xl:flex-row xl:space-x-2 mb-5">
-            <div
-              v-for="(oneuserProfession, index) in userProfession"
-              :key="index"
-            >
+            <div v-for="(profession, index) in userProfession" :key="index">
               <radio
                 class="min-w-20 inline-flex w-full items-center border rounded-lg my-2"
-                v-model="picked"
-                :val="oneuserProfession"
+                v-model="selectedProfession"
+                :val="profession"
                 name="userProfession"
-                >{{ oneuserProfession }}</radio
-              >
+              >{{ profession }}</radio>
             </div>
           </div>
           <div class="h-30">
-            <label
-              for="exyears"
-              class="text-3xl text-white font-hairline uppercase"
-              >Erfarenhet</label
-            >
+            <label for="exyears" class="text-3xl text-white font-hairline uppercase">Erfarenhet</label>
             <InputComponent
               id="exyears"
               class="w-full"
@@ -61,10 +50,8 @@
             />
             <div
               v-if="isNaN(yearsOfExperience)"
-              class=" text-orange-700 font-thin h-5 transition-all duration-500"
-            >
-              please enter a valid number between 0 and 65
-            </div>
+              class="text-orange-700 font-thin h-5 transition-all duration-500"
+            >please enter a valid number between 0 and 65</div>
             <div v-else class="h-0"></div>
           </div>
           <!--  there is many way to aproch this number check I decided to go with this stupid simple way -->
@@ -72,50 +59,55 @@
             class="text-3xl text-white font-hairline uppercase mt-5"
             v-model="selectedCity"
             :options="cityOption"
-            >Ort</DropDown
-          >
+          >Ort</DropDown>
           <DropDown
             class="text-3xl text-white font-hairline uppercase mt-5"
             v-model="selectedYear"
             :options="yearsOption"
-            >Inkomstår</DropDown
-          >
-        </form>
-      </section>
+          >Inkomstår</DropDown>
+        </section>
 
-      <section class="w-full md:w-1/2 text-white mt-10">
-        <div
-          class="border rounded-lg p-5 md:mx-0 my-2 my-2 bg-blue-600 font-medium shadow-lg"
-        >
-          <h1 class="text-3xl text-white font-hairline uppercase">
-            Lön specifikation
-          </h1>
-          <div id="month" class="font-hairline text-6xl flex">
-            <span class="text-xl mr-2 w-1/2 m-auto">Lön efter skatt</span>
-            <span class="text-xs font-hairline font-light mr-1 mt-4">SEK</span>
-            <span class="text-4xl w-1/2 m-auto font-black">{{ taxRate }}</span>
+        <section class="w-full md:w-1/2 text-white mt-10">
+          <div class="border rounded-lg p-5 md:mx-0 my-2 my-2 bg-blue-600 font-medium shadow-lg">
+            <h1 class="text-3xl text-white font-hairline uppercase">Lön specifikation</h1>
+            <div id="month" class="font-hairline text-6xl flex">
+              <span class="text-xl mr-2 w-1/2 m-auto">Lön efter skatt</span>
+              <span class="text-xs font-hairline font-light mr-1 mt-4">SEK</span>
+              <span class="text-4xl w-1/2 m-auto font-black">{{ taxRate }}</span>
+            </div>
+            <hr />
+            <div id="month" class="font-hairline text-6xl flex">
+              <span class="text-lg mr-2 w-1/2 m-auto">Månadslön</span>
+              <span class="text-xs font-hairline font-light mr-1 mt-1">SEK</span>
+              <span class="text-base w-1/2 m-auto">{{ baseSalary }}</span>
+            </div>
+            <hr />
+            <div id="month" class="font-hairline text-6xl flex">
+              <span class="text-xl mr-2 w-1/2 m-auto">Erfarenhet</span>
+              <span class="text-xs font-hairline font-light mr-1 mt-1">SEK</span>
+              <span class="text-base w-1/2 m-auto">
+                {{
+                experiancePercentage
+                }}
+              </span>
+            </div>
+            <hr />
+            <div id="month" class="font-hairline text-6xl flex">
+              <span class="text-xl mr-2 w-1/2 m-auto">Skatt</span>
+              <span class="text-base w-1/2 m-auto ml-6">
+                {{
+                taxPercentage
+                }} %
+              </span>
+            </div>
+            <submit-button
+              class="hover:text-gray-900 font-bold uppercase text-xs mt-8 py-2 px-4 min-w-20 rounded cursor-pointer"
+              @click="onFormSubmit()"
+            >submit</submit-button>
           </div>
-          <hr />
-          <div id="month" class="font-hairline text-6xl flex">
-            <span class="text-lg mr-2 w-1/2 m-auto">Månadslön</span>
-            <span class="text-xs font-hairline font-light mr-1 mt-1">SEK</span>
-            <span class="text-base w-1/2 m-auto">{{ baseSalary }}</span>
-          </div>
-          <hr />
-          <div id="month" class="font-hairline text-6xl flex">
-            <span class="text-xl mr-2 w-1/2 m-auto">Erfarenhet andel</span>
-            <span class="text-xs font-hairline font-light mr-1 mt-1">SEK</span>
-            <span class="text-base w-1/2 m-auto">{{
-              experiancePercentage
-            }}</span>
-          </div>
-          <submit-button
-            class="hover:text-gray-900 font-bold uppercase text-xs mt-8 py-2 px-4 min-w-20 rounded cursor-pointer"
-          >
-            Print
-          </submit-button>
-        </div>
-      </section>
+          <div class="text-white mt-12 text-xs text-green-600" v-if="submitted">{{ onFormSubmit() }}</div>
+        </section>
+      </form>
     </Container>
   </section>
 </template>
@@ -153,23 +145,27 @@ export default defineComponent({
       onFormSubmit,
       yearsOption,
       cityOption,
+      taxPercentage,
       baseSalary,
-      picked,
+      selectedProfession,
+      submitted,
       taxRate
     } = useSalary()
 
     return {
       experiancePercentage,
+      selectedProfession,
       yearsOfExperience,
       userProfession,
+      taxPercentage,
       selectedYear,
       onFormSubmit,
       selectedCity,
       yearsOption,
       baseSalary,
       cityOption,
-      taxRate,
-      picked
+      submitted,
+      taxRate
     }
   }
 })
