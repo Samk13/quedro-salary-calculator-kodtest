@@ -10,7 +10,7 @@ I didn't do testing for now, If it's issential for the review, let me know so I 
 ## Project setup
 
 - drink your coffee or sip your tea ☕🍵
-- smile
+- smile 🙂
 
 then 
 ```
