@@ -19,6 +19,7 @@ cd quedro-salary-calculator-kodtest
 yarn
 ```
 
+
 ### Compiles and hot-reloads for development
 ```
 yarn dev
