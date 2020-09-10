@@ -9,8 +9,8 @@ I didn't do testing for now, If it's issential for the review, let me know so I 
 
 ## Project setup
 
-1- drink your coffee or sip your tea ☕🍵
-2- smile
+- drink your coffee or sip your tea ☕🍵
+- smile
 
 then 
 ```
