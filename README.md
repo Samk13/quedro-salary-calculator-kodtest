@@ -9,6 +9,8 @@ I didn't do testing for now, If it's issential for the review, let me know so I 
 
 ## Project setup
 ```
+git clone https://github.com/Samk13/quedro-salary-calculator-kodtest.git
+cd quedro-salary-calculator-kodtest
 yarn
 ```
 
