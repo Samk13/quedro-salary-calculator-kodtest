@@ -2,7 +2,7 @@ import { ref, computed } from '@vue/composition-api'
 import { Located, SalaryYear, Profession } from '@/types/salaryTypes'
 
 export default function useSalary() {
-  // I can fetch from an api but it's so simple that I will go with this dead simple approch
+  // I can fetch from an API but it's so simple that I will go with this dead-simple approach
   // I am not going to do testing here unless you will ask for it.
   const selectedCity = ref<Located>(Located.Stockholm)
   const selectedYear = ref<SalaryYear>(SalaryYear.ThisYear)
