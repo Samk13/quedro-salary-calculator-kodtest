@@ -8,6 +8,11 @@ I olso used composition api, that's why I didn't use vuex or any other state man
 I didn't do testing for now, If it's issential for the review, let me know so I can add it.
 
 ## Project setup
+
+1- drink your coffee or sip your tea ☕🍵
+2- smile
+
+then 
 ```
 git clone https://github.com/Samk13/quedro-salary-calculator-kodtest.git
 cd quedro-salary-calculator-kodtest
