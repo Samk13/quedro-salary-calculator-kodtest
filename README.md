@@ -26,7 +26,7 @@ yarn dev
 
 ### deployment on gh-pages
 
-- make sure you setup and ssh key for your mashine
+- make sure you setup ssh key for your mashine
 
 #### on Windows
 ```
