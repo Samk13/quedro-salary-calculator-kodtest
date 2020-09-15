@@ -12,6 +12,7 @@ I didn't do testing for now, If it's issential for the review, let me know so I 
 - drink your coffee or sip your tea ☕🍵
 - smile 🙂
 
+
 then 
 ```
 git clone https://github.com/Samk13/quedro-salary-calculator-kodtest.git
