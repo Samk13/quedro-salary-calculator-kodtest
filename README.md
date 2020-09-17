@@ -26,6 +26,7 @@ yarn
 yarn dev
 ```
 
+
 ### deployment on gh-pages
 
 - make sure you setup ssh key for your mashine if you don't remember how,[click here](https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account)
