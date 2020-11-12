@@ -1,4 +1,4 @@
-# quedro-salary-calculator-kodtest
+# Salary-calculator-kodtest
 
 I used:
 
