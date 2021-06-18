@@ -29,7 +29,7 @@ export default defineComponent({
     }
   },
   setup(props: Props, context) {
-    const val = ref<string>(context.attrs.value)
+    const val = ref<unknown>(context.attrs.value)
     const onInput = (event: Event) => {
       const target = event.target as HTMLInputElement
       val.value = target.value
