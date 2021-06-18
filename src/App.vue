@@ -6,7 +6,7 @@
         <a class="skip-link" href="https://docs.paymentiq.io/europe" target="_blank">
           <img
             class="inline-block w-auto h-6"
-            src=".\assets\quedro_logo-white.png"
+            src="./assets/quedro_logo-white.png"
             alt="quedro logo"
           />
         </a>
